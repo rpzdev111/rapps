@@ -23,24 +23,44 @@ html {
 /* THEMES (6 professional schemes) */
 /* Base variables (fallback) */
 :root {
+    --bg-body: #ffffff;
+    --surface: #ffffff;
+    --text-primary: #0f172a;
+    --text-secondary: #334155;
+    --primary: #2A6DFF;
+    --primary-hover: #1e40af;
+    --primary-soft: #dbeafe;
+    --border: #cbd5e1;
+    --border-light: #e2e8f0;
+    --radius-card: 1rem;
+    --radius-btn: 0.5rem;
+    --shadow-md: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.02);
+    --input-bg: #ffffff;
+
     --primary-glow: rgba(0,0,0,0.1);
     --radius-card: 1.5rem;
     --radius-btn: 2rem;
     --radius-sm: 0.75rem;
+    --radius-md: 1rem;
+    --radius-lg: 1.5rem;
+    --radius-xlg: 2rem;
     --shadow-sm: 0 2px 8px rgba(0,0,0,0.02), 0 4px 12px rgba(0,0,0,0.03);
     --shadow-elevated: 0 20px 35px -12px rgba(0,0,0,0.1);
     --shadow-hover: 0 30px 45px -12px rgba(0,0,0,0.2);
-    --bg-body: linear-gradient(125deg, #f0f5ff 0%, #e9f0fa 100%);
-    --card-bg: rgba(255, 255, 255, 0.85);
-    --text-primary: #0c1b33;
-    --text-secondary: #2c3f66;
-    --primary: #4f46e5;
-    --primary-hover: #6366f1;
-    --primary-soft: #e0e7ff;
-    --border: #cddcfd;
-    --border-light: rgba(79, 70, 229, 0.2);
-    --input-bg: rgba(255,255,240,0.9);
-    --blur-card: blur(2px);
+
+    --gray-hue: 240;
+    --gray-sat: 5%;
+    --gray-lt: 56%;
+    --gray: hsl(var(--gray-hue) var(--gray-sat) var(--gray-lt));
+    --gray-100: hsl(var(--gray-hue) var(--gray-sat) calc(var(--gray-lt) + 40%));
+    --gray-200: hsl(var(--gray-hue) var(--gray-sat) calc(var(--gray-lt) + 30%));
+    --gray-300: hsl(var(--gray-hue) var(--gray-sat) calc(var(--gray-lt) + 20%));
+    --gray-400: hsl(var(--gray-hue) var(--gray-sat) calc(var(--gray-lt) + 10%));
+    --gray-500: hsl(var(--gray-hue) var(--gray-sat) calc(var(--gray-lt)));
+    --gray-600: hsl(var(--gray-hue) var(--gray-sat) calc(var(--gray-lt) - 10%));
+    --gray-700: hsl(var(--gray-hue) var(--gray-sat) calc(var(--gray-lt) - 20%));
+    --gray-800: hsl(var(--gray-hue) var(--gray-sat) calc(var(--gray-lt) - 30%));
+    --gray-900: hsl(var(--gray-hue) var(--gray-sat) calc(var(--gray-lt) - 40%));
 }
 
 /* Apply theme variables to elements */
@@ -50,21 +70,21 @@ body {
 }
 
 /* Cards / surfaces */
-.form, 
+/* .form,  */
 .card {
     background: var(--card-bg);
     border-radius: var(--radius-card);
     padding: 1.6rem;
     backdrop-filter: var(--blur-card, none);
     box-shadow: var(--shadow-elevated);
-    transition: all 0.2s ease;
+    transition: all 0.2s ease-in-out;
     border: 1px solid var(--border-light);
     position: relative;
     overflow: hidden;
 }
 
 .card:hover {
-    transform: translateY(-8px);
+    transform: translateY(-2px);
     box-shadow: var(--shadow-hover);
 }
 
@@ -110,13 +130,13 @@ button:hover, .btn:hover {
     box-shadow: 0 8px 18px var(--primary-glow);
 }
 
- table { 
+table { 
     width: 100%; 
     border-collapse: collapse; 
 } 
 th, td { 
     padding: 0.75rem; 
-    text-align: left; 
+    text-align: center; 
     border-bottom: 1px solid var(--border-light); 
 }
 th {
@@ -125,21 +145,109 @@ th {
     font-weight: 600; 
 }
 
+
+/* tree */
+.tree {
+  --spacing: 1.5rem;
+  --radius: 10px;
+  padding-left: 0;
+}
+
+.tree li {
+  display: block;
+  position: relative;
+  padding-left: calc(2 * var(--spacing) - var(--radius) - 12px);
+  /* padding-left: calc(2 * var(--spacing) - var(--radius) - 2px); */
+}
+
+.tree ul {
+  margin-left: calc(var(--radius) - var(--spacing));
+  padding-left: 0;
+}
+
+.tree ul li {
+  border-left: 2px solid #ddd;
+}
+
+.tree ul li:last-child {
+  border-color: transparent;
+}
+
+.tree ul li::before {
+  content: '';
+  display: block;
+  position: absolute;
+  top: calc(var(--spacing) / -2);
+  left: -2px;
+  width: calc(var(--spacing) - 5px);
+  /* width: calc(var(--spacing) + 2px); */
+  height: calc(var(--spacing) + 1px);
+  border: solid #ddd;
+  border-width: 0 0 2px 2px;
+}
+
+.tree summary {
+  display: block;
+  cursor: pointer;
+}
+
+.tree summary::marker,
+.tree summary::-webkit-details-marker {
+  display: none;
+}
+
+.tree summary:focus {
+  outline: none;
+}
+
+.tree summary:focus-visible {
+  outline: 1px dotted #000;
+}
+
+.tree li::after,
+.tree summary::before {
+  content: '';
+  display: block;
+  position: absolute;
+  top: calc(var(--spacing) / 2 - var(--radius));
+  left: calc(var(--spacing) - var(--radius) - 10px);
+  /* left: calc(var(--spacing) - var(--radius) - 1px); */
+  width: calc(2 * var(--radius));
+  height: calc(2 * var(--radius));
+  border-radius: 50%;
+  /* background: #ddd; */
+}
+
+.tree summary::before {
+  z-index: 1;
+  content: "►";
+  transition: transform 0.1s ease-in;
+  /* background: #696 url('expand-collapse.svg') 0 0; */
+}
+
+.tree details[open] > summary::before {
+  /* background-position: calc(-2 * var(--radius)) 0; */
+  transform: rotate(90deg);
+}
+
+/* tree-end */
+
 .toggle {
   position: relative;
   display: inline-block;
   width: 35px;
   height: 12px;
-  background: #ccc;
+  background: var(--gray-200);
   border-radius: 15px;
   cursor: pointer;
   transition: background 0.3s;
   margin-top: 4px;
   margin-bottom: 4px;
+  /* box-shadow: var(--shadow-md); */
 }
 
 .toggle.active {
-  background: var(--rpz-primary-200);
+  background: var(--primary);
 }
 
 .toggle .tslider {
@@ -147,7 +255,7 @@ th {
   top: -4px;
   width: 20px;
   height: 20px;
-  background: white;
+  background: var(--input-bg);
   border-radius: 50%;
   transition: transform 0.1s;
   box-shadow: 0 2px 4px rgba(0,0,0,0.2);
@@ -155,50 +263,40 @@ th {
 
 .toggle.active .tslider {
   transform: translateX(15px);
-  background: var(--rpz-primary);
+  background: var(--primary);
 }
 
-/* --- ctrl-bar -- */
-.fx-fx{
-    display: flex !important;
+/* from iot components */
+@keyframes mymove {
+    100% {transform: rotate(360deg);}
 }
 
-.ctrl-bar{
-    display:none;
-    position:absolute;
-    top:0;
-    right:0;
-    z-index:9999;
-    background:var(--primary);
-    border-radius:0 3px 0 5px;
-    padding:1px 2px;
-    gap:1px;
-    width: fit-content; 
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
 }
 
-.ctrl-bar button{
-    width:16px;
-    height:16px;
-    border:none;
-    background:transparent;
-    color:#fff;
-    font-size:12px;
-    cursor:pointer;
-    border-radius:2px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    padding:0;
-    line-height:1;
+@keyframes rotate-con {
+  from {transform: rotate(0deg);}
+  to {transform: rotate(360deg);}
 }
 
-.ctrl-bar button:hover{
-    background:rgba(255,255,255,.25);
+@keyframes grow{
+    from{
+      transform: scaleY(0);
+    }
 }
 
-/* UTILITY FIRST CSS */
+@keyframes h_grow{
+    0% { width: 0; }
+}
 
-/* LAYOUT & DISPLAY */
+/* utility based CSS */
+
 .block { display: block; }
 .inline-block { display: inline-block; }
 .inline { display: inline; }
@@ -635,6 +733,31 @@ th {
 .object-cover { object-fit: cover; }
 .object-contain { object-fit: contain; }
 .object-fill { object-fit: fill; }
+
+/* Internal */
+
+/* Drop indicator */
+.drop-indicator {
+    background-color: #4a6fa5;
+    border-radius: 2px;
+    display: none;
+}
+
+.drop-indicator.row{
+    height: 2px;
+    width: 100%;
+    margin: 5px 0;
+}
+
+.drop-indicator.col{
+    height: 100%;
+    width: 2px;
+    margin: 0 5px;
+}
+
+.drop-indicator.visible {
+    display: block;
+}
 
 /* --- ctrl-bar -- */
 .fx-fx{
